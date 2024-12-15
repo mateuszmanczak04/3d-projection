@@ -2,32 +2,38 @@ import { Block, BlockVertices, Coords2D, Coords3D } from '../types';
 
 /**
  * Edges of the cube in 3D.
+ *    7-------6   // Back face
+    /|      /|
+    4-------5 |  
+    | |     | |
+    | 3-----|-2   // Front face
+    |/      |/
+    0-------1 
  */
 export const cubeEdges = [
-	[0, 1, 0, 1, 1, 0, 0, 0],
-	[0, 0, 1, 0, 0, 1, 0, 0],
-	[0, 0, 0, 1, 0, 0, 1, 0],
-	[0, 0, 0, 0, 0, 0, 0, 1],
-	[0, 0, 0, 0, 0, 1, 0, 1],
-	[0, 0, 0, 0, 0, 0, 1, 0],
-	[0, 0, 0, 0, 0, 0, 0, 1],
-	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 1, 0, 1, 1, 0, 0, 0], // Edges from vertex 0
+	[0, 0, 1, 0, 0, 1, 0, 0], // Edges from vertex 1
+	[0, 0, 0, 1, 0, 0, 1, 0], // Edges from vertex 2
+	[0, 0, 0, 0, 0, 0, 0, 1], // Edges from vertex 3
+	[0, 0, 0, 0, 0, 1, 0, 1], // Edges from vertex 4
+	[0, 0, 0, 0, 0, 0, 1, 0], // Edges from vertex 5
+	[0, 0, 0, 0, 0, 0, 0, 1], // Edges from vertex 6
+	[0, 0, 0, 0, 0, 0, 0, 0], // Edges from vertex 7
 ];
 
 /**
  * Get positions of all vertices of cubic block.
  */
-export const getBlockVertices = (block: Block): BlockVertices => [
-	{ x: block.x, y: block.y, z: block.z },
-	{ x: block.x + 1, y: block.y, z: block.z },
-	{ x: block.x + 1, y: block.y + 1, z: block.z },
-	{ x: block.x, y: block.y + 1, z: block.z },
-	{ x: block.x, y: block.y, z: block.z + 1 },
-	{ x: block.x + 1, y: block.y, z: block.z + 1 },
-	{ x: block.x + 1, y: block.y + 1, z: block.z + 1 },
-	{ x: block.x, y: block.y + 1, z: block.z + 1 },
+export const getBlockVertices = (block: { x: number; y: number; z: number }): BlockVertices => [
+	{ x: block.x, y: block.y, z: block.z }, // Vertex 0 (0, 0, 0)
+	{ x: block.x + 1, y: block.y, z: block.z }, // Vertex 1 (1, 0, 0)
+	{ x: block.x + 1, y: block.y, z: block.z - 1 }, // Vertex 2 (1, 1, 0)
+	{ x: block.x, y: block.y, z: block.z - 1 }, // Vertex 3 (0, 1, 0)
+	{ x: block.x, y: block.y + 1, z: block.z }, // Vertex 4 (0, 0, 1)
+	{ x: block.x + 1, y: block.y + 1, z: block.z }, // Vertex 5 (1, 0, 1)
+	{ x: block.x + 1, y: block.y + 1, z: block.z - 1 }, // Vertex 6 (1, 1, 1)
+	{ x: block.x, y: block.y + 1, z: block.z - 1 }, // Vertex 7 (0, 1, 1)
 ];
-
 /**
  * Get position of vertices on the screen after projection.
  */

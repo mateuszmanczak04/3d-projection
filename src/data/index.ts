@@ -1,11 +1,17 @@
 import { Block, Coords2D, Coords3D } from '../types';
 
+/**
+ * Larger x -> to the right
+ * Larget y -> to the top
+ * Larger z -> deeper into the screen
+ * Smaller z -> closer to the user face
+ */
 export const DUMMY_BLOCKS: Block[] = [
 	{
 		id: 'dirt',
 		x: 0,
 		y: 0,
-		z: 0,
+		z: 2,
 	},
 	{
 		id: 'dirt',
@@ -28,7 +34,7 @@ export const DUMMY_BLOCKS: Block[] = [
 	{
 		id: 'dirt',
 		x: -3,
-		y: 0,
+		y: 1,
 		z: 0,
 	},
 	{
