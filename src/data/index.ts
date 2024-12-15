@@ -31,6 +31,18 @@ export const DUMMY_BLOCKS: Block[] = [
 		y: 0,
 		z: 0,
 	},
+	{
+		id: 'dirt',
+		x: -2,
+		y: 0,
+		z: 1,
+	},
+	{
+		id: 'dirt',
+		x: -1,
+		y: -1,
+		z: 2,
+	},
 ];
 
 export const DUMMY_SCREEN_CENTER_POSITION: Coords3D = {

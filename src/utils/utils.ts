@@ -66,7 +66,6 @@ export const paintBlock = (
 ) => {
 	const vertices = getBlockVertices(block);
 	const projectedVertices = getProjectedVertices(vertices, screenCenterPosition, cameraPosition);
-	console.table(projectedVertices);
 	ctx.fillStyle = getRandomHexColor();
 
 	// Draw vertices
