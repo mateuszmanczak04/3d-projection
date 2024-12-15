@@ -134,10 +134,31 @@ const rotate = (matrix, center = [50, 50, 100]) => {
 	});
 };
 
-const rotateByABit = () => {
-	const rotationMatrix = getRotationMatrixXYZ(1, 1, 1);
+let rotationAngles = [0, 0, 0];
+
+const xRotationInput = document.getElementById('rotate-x');
+const yRotationInput = document.getElementById('rotate-y');
+const zRotationInput = document.getElementById('rotate-z');
+
+xRotationInput.addEventListener('change', (e) => {
+	rotationAngles[0] = parseFloat(e.target.value);
+	const rotationMatrix = getRotationMatrixXYZ(...rotationAngles);
 	rotate(rotationMatrix);
 	draw();
-};
+});
 
-setInterval(rotateByABit, 10);
+yRotationInput.addEventListener('change', (e) => {
+	rotationAngles[1] = parseFloat(e.target.value);
+	const rotationMatrix = getRotationMatrixXYZ(...rotationAngles);
+	rotate(rotationMatrix);
+	draw();
+});
+
+zRotationInput.addEventListener('change', (e) => {
+	rotationAngles[2] = parseFloat(e.target.value);
+	const rotationMatrix = getRotationMatrixXYZ(...rotationAngles);
+	rotate(rotationMatrix);
+	draw();
+});
+
+draw();
