@@ -68,6 +68,8 @@ export const paintBlock = (
 	const projectedVertices = getProjectedVertices(vertices, screenCenterPosition, cameraPosition);
 	console.table(projectedVertices);
 	ctx.fillStyle = getRandomHexColor();
+
+	// Draw vertices
 	projectedVertices.forEach((vertex) => {
 		ctx.beginPath();
 		ctx.arc(
@@ -79,4 +81,23 @@ export const paintBlock = (
 		);
 		ctx.fill();
 	}, []);
+
+	// Draw edges
+	cubeEdges.forEach((edge, i) => {
+		edge.forEach((connection, j) => {
+			if (connection === 1) {
+				const startPoint = projectedVertices[i];
+				const endPoint = projectedVertices[j];
+				ctx.moveTo(
+					startPoint.x * renderScale + projectedTranslation.x,
+					startPoint.y * renderScale + projectedTranslation.y,
+				);
+				ctx.lineTo(
+					endPoint.x * renderScale + projectedTranslation.x,
+					endPoint.y * renderScale + projectedTranslation.y,
+				);
+				ctx.stroke();
+			}
+		});
+	});
 };
