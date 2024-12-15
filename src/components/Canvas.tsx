@@ -33,17 +33,17 @@ const Canvas = () => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const [scale] = useState<number>(100);
 	const [translation] = useState<Coords2D>({ x: 400, y: 300 });
-	const [camera, setCamera] = useState<Coords3D>({
+	const [camera] = useState<Coords3D>({
 		x: 0,
 		y: 0,
 		z: -10,
 	});
-	const [screenCenter, setScreenCenter] = useState<Coords3D>({
+	const [screenCenter] = useState<Coords3D>({
 		x: 0,
 		y: 0,
 		z: -5,
 	});
-	const [blocks, setBlocks] = useState<Block[]>([
+	const [blocks] = useState<Block[]>([
 		{
 			id: 'dirt',
 			x: 0,
