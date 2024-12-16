@@ -1,3 +1,4 @@
+import Matrix from 'ml-matrix';
 import { Block, BlockVertices, Coords2D, Coords3D } from '../types';
 
 /**
@@ -10,16 +11,6 @@ import { Block, BlockVertices, Coords2D, Coords3D } from '../types';
     |/      |/
     0-------1 
  */
-export const cubeEdges = [
-	[0, 1, 0, 1, 1, 0, 0, 0], // Edges from vertex 0
-	[0, 0, 1, 0, 0, 1, 0, 0], // Edges from vertex 1
-	[0, 0, 0, 1, 0, 0, 1, 0], // Edges from vertex 2
-	[0, 0, 0, 0, 0, 0, 0, 1], // Edges from vertex 3
-	[0, 0, 0, 0, 0, 1, 0, 1], // Edges from vertex 4
-	[0, 0, 0, 0, 0, 0, 1, 0], // Edges from vertex 5
-	[0, 0, 0, 0, 0, 0, 0, 1], // Edges from vertex 6
-	[0, 0, 0, 0, 0, 0, 0, 0], // Edges from vertex 7
-];
 
 /**
  * Get positions of all vertices of cubic block.
@@ -38,23 +29,39 @@ export const getBlockVertices = (block: { x: number; y: number; z: number }): Bl
  * Get position of vertices on the screen after projection.
  */
 export const getProjectedVertices = (
-	vertices: BlockVertices,
-	screenCenterPosition: Coords3D,
-	cameraPosition: Coords3D,
-): Coords2D[] =>
-	vertices.map((vertex) => {
-		const zDistanceFromCameraToScreen = Math.abs(screenCenterPosition.z - cameraPosition.z);
-		const zDistanceFromScreenToVertex = Math.abs(vertex.z - screenCenterPosition.z);
-		const ratio = zDistanceFromCameraToScreen / zDistanceFromScreenToVertex;
+	vertices: BlockVertices, // Array of 3D vertex positions
+	cameraPosition: Coords3D, // Camera position
+	screenCenterPosition: Coords2D, // 2D screen center (e.g., { x: 400, y: 300 })
+	focalLength: number, // Focal length for perspective projection
+): Coords2D[] => {
+	// Perspective projection matrix
+	const projectionMatrix = new Matrix([
+		[focalLength, 0, 0, 0],
+		[0, focalLength, 0, 0],
+		[0, 0, 1, 0],
+	]);
 
-		const xDistance = cameraPosition.x - vertex.x;
-		const projectedX = cameraPosition.x - xDistance * ratio;
+	return vertices
+		.filter((vertex) => vertex.z - cameraPosition.z > 0)
+		.map((vertex) => {
+			// Step 1: Translate vertex relative to camera
+			const relativeVertex = new Matrix([
+				[vertex.x - cameraPosition.x],
+				[vertex.y - cameraPosition.y],
+				[vertex.z - cameraPosition.z],
+				[1],
+			]);
 
-		const yDistance = cameraPosition.y - vertex.y;
-		const projectedY = cameraPosition.y + yDistance * ratio;
+			// Step 2: Apply projection matrix
+			const projected = projectionMatrix.mmul(relativeVertex);
 
-		return { x: projectedX, y: projectedY };
-	});
+			// Step 3: Normalize coordinates (perspective divide)
+			const xProjected = projected.get(0, 0) / projected.get(2, 0) + screenCenterPosition.x;
+			const yProjected = projected.get(1, 0) / projected.get(2, 0) + screenCenterPosition.y;
+
+			return { x: xProjected, y: yProjected };
+		});
+};
 
 export const getRandomHexColor = (): string => {
 	const randomColor = Math.floor(Math.random() * 16777215).toString(16);
@@ -71,8 +78,15 @@ export const paintBlock = (
 	projectedTranslation: Coords2D,
 ) => {
 	const vertices = getBlockVertices(block);
-	const projectedVertices = getProjectedVertices(vertices, screenCenterPosition, cameraPosition);
-	ctx.fillStyle = getRandomHexColor();
+	const projectedVertices = getProjectedVertices(
+		vertices,
+		screenCenterPosition,
+		cameraPosition,
+		5, // Similar to FOV, the bigger, the closer
+	);
+	const randomColor = getRandomHexColor();
+	ctx.fillStyle = randomColor;
+	ctx.strokeStyle = randomColor;
 
 	// Draw vertices
 	projectedVertices.forEach((vertex) => {
@@ -88,21 +102,33 @@ export const paintBlock = (
 	}, []);
 
 	// Draw edges
-	cubeEdges.forEach((edge, i) => {
-		edge.forEach((connection, j) => {
-			if (connection === 1) {
-				const startPoint = projectedVertices[i];
-				const endPoint = projectedVertices[j];
-				ctx.moveTo(
-					startPoint.x * renderScale + projectedTranslation.x,
-					startPoint.y * renderScale + projectedTranslation.y,
-				);
-				ctx.lineTo(
-					endPoint.x * renderScale + projectedTranslation.x,
-					endPoint.y * renderScale + projectedTranslation.y,
-				);
-				ctx.stroke();
-			}
-		});
+	const cubeEdges = [
+		[0, 1],
+		[1, 2],
+		[2, 3],
+		[3, 0], // Bottom face edges
+		[4, 5],
+		[5, 6],
+		[6, 7],
+		[7, 4], // Top face edges
+		[0, 4],
+		[1, 5],
+		[2, 6],
+		[3, 7], // Vertical edges
+	];
+
+	cubeEdges.forEach(([i, j]) => {
+		const startPoint = projectedVertices[i];
+		const endPoint = projectedVertices[j];
+		ctx.beginPath();
+		ctx.moveTo(
+			startPoint.x * renderScale + projectedTranslation.x,
+			startPoint.y * renderScale + projectedTranslation.y,
+		);
+		ctx.lineTo(
+			endPoint.x * renderScale + projectedTranslation.x,
+			endPoint.y * renderScale + projectedTranslation.y,
+		);
+		ctx.stroke();
 	});
 };
