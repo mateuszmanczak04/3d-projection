@@ -1,68 +1,37 @@
-import { Block, Coords2D, Coords3D } from '../types';
+import { Block, Vector3D } from '../types';
 
-/**
- * Larger x -> to the right
- * Larget y -> to the top
- * Larger z -> deeper into the screen
- * Smaller z -> closer to the user face
- */
-export const DUMMY_BLOCKS: Block[] = [
+export const BLOCKS: Block[] = [
 	{
 		id: 'dirt',
-		x: 0,
-		y: 0,
-		z: 2,
+		coordinates: [0, 0, 2],
 	},
 	{
 		id: 'dirt',
-		x: 1,
-		y: 1,
-		z: 0,
+		coordinates: [1, 1, 0],
 	},
 	{
 		id: 'dirt',
-		x: 3,
-		y: 0,
-		z: 0,
+		coordinates: [3, 0, 0],
 	},
 	{
 		id: 'dirt',
-		x: 0,
-		y: 1,
-		z: 0,
+		coordinates: [0, 1, 0],
 	},
 	{
 		id: 'dirt',
-		x: -3,
-		y: 1,
-		z: 0,
+		coordinates: [-3, 1, 0],
 	},
 	{
 		id: 'dirt',
-		x: -2,
-		y: 0,
-		z: 1,
+		coordinates: [-2, 0, 1],
 	},
 	{
 		id: 'dirt',
-		x: -1,
-		y: -1,
-		z: 2,
+		coordinates: [-1, -1, 2],
 	},
 ];
 
-export const DUMMY_SCREEN_CENTER_POSITION: Coords3D = {
-	x: 0,
-	y: 0,
-	z: -5,
-};
+export const SCREEN_POSITION: Vector3D = [0, 0, -5]
+export const CAMERA_POSITION: Vector3D = [0,0,0]
+export const CAMERA_ROTATION: Vector3D = [0,0,0]
 
-export const DUMMY_CAMERA_POSITION: Coords3D = {
-	x: 0,
-	y: 0,
-	z: -10,
-};
-
-export const DUMMY_PROJECTED_TRANSLATION: Coords2D = { x: 400, y: 300 };
-
-export const DUMMY_RENDER_SCALE: number = 100;
