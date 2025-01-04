@@ -1,4 +1,4 @@
-import { Block, Vector3D } from '../types';
+import { Block, Vector2D, Vector3D } from '../types';
 
 export const BLOCKS: Block[] = [
 	{
@@ -34,4 +34,4 @@ export const BLOCKS: Block[] = [
 export const SCREEN_POSITION: Vector3D = [0, 0, -5]
 export const CAMERA_POSITION: Vector3D = [0,0,0]
 export const CAMERA_ROTATION: Vector3D = [0,0,0]
-
+export const SCREEN_SIZE: Vector2D = [800, 600];

@@ -10,7 +10,7 @@ export const paintBlock = (
 	cameraPosition: Vector3D,
     cameraRotation: Vector3D,
 	screenPosition: Vector3D,
-	projectedTranslation: Vector2D,
+	screenSize: Vector2D
 ) => {
 	const vertices = getBlockVertices(block.coordinates);
 	const projectedVertices = getProjectedVertices(
@@ -27,8 +27,8 @@ export const paintBlock = (
 	projectedVertices.forEach((vertex) => {
 		ctx.beginPath();
 		ctx.arc(
-			vertex.x + projectedTranslation.x,
-			vertex.y + projectedTranslation.y,
+			vertex[0] + screenSize[0] / 2,
+			vertex[1] + screenSize[1] / 2,
 			4,
 			0,
 			Math.PI * 2,
@@ -57,12 +57,12 @@ export const paintBlock = (
 		const endPoint = projectedVertices[j];
 		ctx.beginPath();
 		ctx.moveTo(
-			startPoint.x + projectedTranslation.x,
-			startPoint.y + projectedTranslation.y,
+			startPoint[0] + screenSize[0] / 2,
+			startPoint[1] + screenSize[1] / 2,
 		);
 		ctx.lineTo(
-			endPoint.x + projectedTranslation.x,
-			endPoint.y + projectedTranslation.y,
+			endPoint[0] + screenSize[0] / 2,
+			endPoint[1] + screenSize[1] / 2,
 		);
 		ctx.stroke();
 	});
