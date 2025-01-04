@@ -24,5 +24,13 @@ export type Matrix3x3 = [
 	[number, number, number]
 ]
 
-
+export type Camera = {
+	position: [number, number, number],
+	yaw: number,
+	pitch: number,
+	roll: number,
+	fov: number,
+	aspectRatio: number;
+	nearPlane: number
+}
 

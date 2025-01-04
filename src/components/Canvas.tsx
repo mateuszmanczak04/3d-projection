@@ -1,39 +1,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
 	BLOCKS,
-	CAMERA_POSITION,
-
-	SCREEN_POSITION,
-	SCREEN_SIZE,
+	CAMERA
 } from '../data';
-import { Block, Vector2D, Vector3D } from '../types';
-import { paintBlock } from '../utils/paint-block';
+import { Block, Camera } from '../types';
+import { render } from '../utils/render';
 
 const Canvas = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null!);
 	const [blocks] = useState<Block[]>(BLOCKS);
-	const [cameraPosition] = useState<Vector3D>(CAMERA_POSITION);
-	const [cameraRotation] = useState<Vector3D>(CAMERA_POSITION);
-	const [screenPosition] = useState<Vector3D>(SCREEN_POSITION);
-	const [screenSize] = useState<Vector2D>(SCREEN_SIZE)
+	const [camera] = useState<Camera>(CAMERA)
 
 	const repaint = useCallback(
 		(blocks: Block[]) => {
 			const ctx = canvasRef.current.getContext('2d');
 			if (!ctx) return;
-			ctx.clearRect(0, 0, 800, 600);
-			blocks.forEach((block) =>
-				paintBlock(
-					block,
-					ctx,
-					cameraPosition,
-					cameraRotation,
-					screenPosition,
-					screenSize
-				),
-			);
+			render(ctx, blocks, camera)
 		},
-		[cameraPosition, cameraRotation, screenPosition, screenSize],
+		[camera],
 	);
 
 	useEffect(() => {

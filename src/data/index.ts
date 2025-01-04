@@ -1,37 +1,35 @@
-import { Block, Vector2D, Vector3D } from '../types';
+import { Block, Camera } from '../types';
+import { degreesToRadians } from '../utils/degrees-to-radians';
 
 export const BLOCKS: Block[] = [
 	{
 		id: 'dirt',
-		coordinates: [0, 0, 2],
+		coordinates: [-0.5, 1, 5],
 	},
 	{
-		id: 'dirt',
-		coordinates: [1, 1, 0],
+		id: 'stone',
+		coordinates: [1.5, -1, 3],
 	},
 	{
-		id: 'dirt',
-		coordinates: [3, 0, 0],
+		id: 'sand',
+		coordinates: [-2, 0.5, 4],
 	},
 	{
-		id: 'dirt',
-		coordinates: [0, 1, 0],
+		id: 'water',
+		coordinates: [-2, -1, 3],
 	},
 	{
-		id: 'dirt',
-		coordinates: [-3, 1, 0],
-	},
-	{
-		id: 'dirt',
-		coordinates: [-2, 0, 1],
-	},
-	{
-		id: 'dirt',
-		coordinates: [-1, -1, 2],
+		id: 'wood',
+		coordinates: [2, 1, 6],
 	},
 ];
 
-export const SCREEN_POSITION: Vector3D = [0, 0, -5]
-export const CAMERA_POSITION: Vector3D = [0,0,0]
-export const CAMERA_ROTATION: Vector3D = [0,0,0]
-export const SCREEN_SIZE: Vector2D = [800, 600];
+export const CAMERA: Camera = {
+	position: [0, 0, 0],
+	yaw: degreesToRadians(0),
+	pitch: degreesToRadians(0),
+	roll: degreesToRadians(0),
+	fov: 1, 
+	aspectRatio: 800 / 600, // Canvas aspect ratio
+	nearPlane: 1, // Near plane distance
+}

@@ -1,10 +1,10 @@
-import { Matrix3x3, Vector3D } from "../types";
+import { Matrix3x3 } from "../types";
 import { multiplyMatrices } from "./multiply-matrices";
 
 /**
  * Generates a rotation matrix from the given yaw, pitch, and roll angles.
  */
-export const getRotationMatrix = ([yaw, pitch, roll]: Vector3D): Matrix3x3 => {
+export const getRotationMatrix = (yaw: number, pitch: number, roll:number): Matrix3x3 => {
     // Yaw (Y-axis)
     const yawMatrix: Matrix3x3 = [
         [Math.cos(yaw), 0, Math.sin(yaw)],
