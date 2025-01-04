@@ -10,7 +10,7 @@ import { Block, Coords2D, Coords3D } from '../types';
 import { paintBlock } from '../utils/utils';
 
 const Canvas = () => {
-	const canvasRef = useRef<HTMLCanvasElement | null>(null);
+	const canvasRef = useRef<HTMLCanvasElement>(null!);
 	const [blocks] = useState<Block[]>(DUMMY_BLOCKS);
 	const [renderScale] = useState<number>(DUMMY_RENDER_SCALE);
 	const [cameraPosition] = useState<Coords3D>(DUMMY_CAMERA_POSITION);
@@ -19,7 +19,7 @@ const Canvas = () => {
 
 	const repaint = useCallback(
 		(blocks: Block[]) => {
-			const ctx = canvasRef.current!.getContext('2d');
+			const ctx = canvasRef.current.getContext('2d');
 			if (!ctx) return;
 			ctx.clearRect(0, 0, 800, 600);
 			blocks.forEach((block) =>
