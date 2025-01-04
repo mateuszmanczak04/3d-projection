@@ -1,7 +1,7 @@
 import { Block, Camera } from "../types";
+import { getBlockColor } from "./get-block-color";
 import { getBlockVertices } from "./get-block-vertices";
 import { getProjectedPoints } from "./get-projected-points";
-import { getRandomHexColor } from "./get-random-hex-color";
 
 /** Paint block vertices and edges */
 export const renderBlock = (
@@ -15,9 +15,9 @@ export const renderBlock = (
 	const vertices = getBlockVertices(block.coordinates);
 
 	// Set styling for drawing
-	const randomColor = getRandomHexColor();
-	context.fillStyle = randomColor;
-	context.strokeStyle = randomColor;
+	const blockColor = getBlockColor(block.id)
+	context.fillStyle = blockColor;
+	context.strokeStyle = blockColor;
 
 	const projectedVertices = getProjectedPoints(vertices, camera);
 

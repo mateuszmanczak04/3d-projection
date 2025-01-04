@@ -1,5 +1,7 @@
+export type BlockId = 'dirt' | 'stone' | 'water' | 'wood' | 'sand'
+
 export type Block = {
-	id: string;
+	id: BlockId;
 	coordinates: Vector3D
 };
 
