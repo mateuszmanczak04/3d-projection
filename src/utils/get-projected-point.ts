@@ -1,5 +1,6 @@
 
 import { Camera, Matrix3x3, Vector2D, Vector3D } from "../types";
+import { degreesToRadians } from "./degrees-to-radians";
 import { getRotationMatrix } from "./get-rotation-matrix";
 import { multiplyMatrixVector } from "./multiply-matrix-vector";
 
@@ -12,7 +13,7 @@ export const getProjectedPoint = (
         point[2] - camera.position[2],
     ]
 
-    const rotationMatrix: Matrix3x3 = getRotationMatrix(camera.yaw, camera.pitch, camera.roll);
+    const rotationMatrix: Matrix3x3 = getRotationMatrix(degreesToRadians( camera.yaw), degreesToRadians(camera.pitch), degreesToRadians(camera.roll));
 
     // Rotate point
     const [x, y, z]  = multiplyMatrixVector(rotationMatrix, aTranslated);

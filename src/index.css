@@ -27,3 +27,8 @@ body {
 	background: #efefef;
 	border: 1px solid black;
 }
+
+.controls {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
