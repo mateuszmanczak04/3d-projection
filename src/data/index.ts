@@ -1,5 +1,4 @@
 import { Block, Camera } from '../types';
-import { degreesToRadians } from '../utils/degrees-to-radians';
 
 export const BLOCKS: Block[] = [
 	{
@@ -66,9 +65,9 @@ export const BLOCKS: Block[] = [
 
 export const CAMERA: Camera = {
 	position: [0, 0, 0],
-	yaw: degreesToRadians(0),
-	pitch: degreesToRadians(0),
-	roll: degreesToRadians(0),
+	yaw: 0,
+	pitch: 0,
+	roll: 0,
 	fov: 1, 
 	aspectRatio: 800 / 600, // Canvas aspect ratio
 	nearPlane: 1, // Near plane distance

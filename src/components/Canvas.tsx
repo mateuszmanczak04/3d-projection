@@ -40,6 +40,11 @@ const Canvas = () => {
 		<div></div>
 		<button onClick={() => rotateCamera(0, -5, 0)}>Rotate Bottom</button>
 		</div>
+
+		<div className='coords'>
+			<p>Camera position: {camera.position[0]} {camera.position[1]} {camera.position[2]}</p>
+			<p>Camera rotation: {camera.yaw} {camera.pitch} {camera.roll}</p>
+		</div>
 		</div>
 };
 

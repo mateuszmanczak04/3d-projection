@@ -19,7 +19,10 @@ export const renderBlock = (
 	context.fillStyle = blockColor;
 	context.strokeStyle = blockColor;
 
-	const projectedVertices = getProjectedPoints(vertices, camera);
+	const projectedVertices = getProjectedPoints(vertices, camera, context.canvas.width, context.canvas.height);
+
+// Render only these blocks that are fully on the screen
+	if (projectedVertices.length !== 8) return;
 
 	// Draw vertices
 	projectedVertices.forEach((projectedVertex) => {
