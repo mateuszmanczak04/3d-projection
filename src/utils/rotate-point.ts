@@ -12,6 +12,6 @@ export const rotatePoint = (point: Vector3D, cameraAngles: Vector3D): number[] =
     const pitch = degreesToRadians(cameraAngles[1]);
     const roll = degreesToRadians(cameraAngles[2]);
 
-    const rotationMatrix = getRotationMatrix([yaw, pitch, roll]);
+    const rotationMatrix = getRotationMatrix(yaw, pitch, roll);
     return multiplyMatrixVector(rotationMatrix, point);
 };
