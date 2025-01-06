@@ -44,6 +44,7 @@ const Canvas = () => {
 		}
 	};
 
+	// Handle pointer lock events
 	useEffect(() => {
 		const listener = () => {
 			setIsPointerLocked(document.pointerLockElement === canvasRef.current);
@@ -53,6 +54,7 @@ const Canvas = () => {
 		return () => document.removeEventListener('pointerlockchange', listener);
 	}, []);
 
+	// Handle window resize for fullscreen
 	useEffect(() => {
 		const handleResize = () => {
 			if (canvasRef.current) {
