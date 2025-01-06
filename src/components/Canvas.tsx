@@ -53,6 +53,21 @@ const Canvas = () => {
 		return () => document.removeEventListener('pointerlockchange', listener);
 	}, []);
 
+	useEffect(() => {
+		const handleResize = () => {
+			if (canvasRef.current) {
+				canvasRef.current.width = window.innerWidth;
+				canvasRef.current.height = window.innerHeight;
+				repaint(blocks);
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+
+		return () => window.removeEventListener('resize', handleResize);
+	}, [blocks, repaint]);
+
 	return (
 		<div>
 			<div id='canvas-wrapper'>
@@ -78,11 +93,17 @@ const Canvas = () => {
 
 			<div className='coords'>
 				<p>
-					Camera position: {camera.position[0]} {camera.position[1]} {camera.position[2]}
+					<strong>Coords</strong>
 				</p>
+				<p>X: {Math.round(camera.position[0] * 100) / 100}</p>
+				<p>Y: {Math.round(camera.position[1] * 100) / 100}</p>
+				<p>Z: {Math.round(camera.position[2] * 100) / 100}</p>
 				<p>
-					Camera rotation: {camera.yaw} {camera.pitch} {camera.roll}
+					<strong>Camera rotation</strong>
 				</p>
+				<p>Yaw: {Math.round(camera.yaw * 100) / 100}</p>
+				<p>Pitch: {Math.round(camera.pitch * 100) / 100}</p>
+				<p>Roll: {Math.round(camera.roll * 100) / 100}</p>
 			</div>
 		</div>
 	);

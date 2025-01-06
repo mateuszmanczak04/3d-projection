@@ -41,7 +41,11 @@ body {
 	transform: translate(-50%, -50%);
 }
 
-.controls {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+.coords {
+	position: fixed;
+	left: 24px;
+	top: 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
 }
