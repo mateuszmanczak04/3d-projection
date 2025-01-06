@@ -60,7 +60,7 @@ export const BLOCKS: Block[] = [
 	{
 		id: 'wood',
 		coordinates: [2, -2.5, 4],
-	}
+	},
 ];
 
 export const CAMERA: Camera = {
@@ -68,7 +68,7 @@ export const CAMERA: Camera = {
 	yaw: 0,
 	pitch: 0,
 	roll: 0,
-	fov: 1, 
-	aspectRatio: 800 / 600, // Canvas aspect ratio
+	fov: 1,
+	aspectRatio: 600 / 800, // Canvas aspect ratio
 	nearPlane: 1, // Near plane distance
-}
+};
