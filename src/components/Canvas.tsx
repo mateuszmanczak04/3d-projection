@@ -24,6 +24,9 @@ const Canvas = () => {
 	}, [blocks, repaint]);
 
 	const rotateCamera = (yaw: number, pitch: number, roll: number) => {
+		// yaw - left/right
+		// pitch - top/bottom but only if yaw is 0
+		// roll - top/bottom but only if yaw is 90
 		setCamera((prev) => ({
 			...prev,
 			yaw: prev.yaw + yaw,
