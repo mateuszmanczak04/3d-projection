@@ -69,7 +69,7 @@ export const CAMERA: Camera = {
 	pitch: 0,
 	roll: 0,
 	fov: 1,
-	aspectRatio: 600 / 800, // Canvas aspect ratio
+	aspectRatio: 1, // Canvas aspect ratio
 	nearPlane: 1, // Near plane distance
 };
 
