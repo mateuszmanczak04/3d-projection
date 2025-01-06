@@ -72,3 +72,5 @@ export const CAMERA: Camera = {
 	aspectRatio: 600 / 800, // Canvas aspect ratio
 	nearPlane: 1, // Near plane distance
 };
+
+export const MOUSE_SPEED: number = 0.3;

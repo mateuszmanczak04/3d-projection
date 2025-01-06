@@ -26,6 +26,19 @@ body {
 #canvas {
 	background: #efefef;
 	border: 1px solid black;
+	cursor: pointer;
+}
+
+#canvas-wrapper {
+	position: relative;
+}
+
+/* Crosshair */
+#canvas-wrapper #crosshair {
+	left: 50%;
+	top: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
 }
 
 .controls {
