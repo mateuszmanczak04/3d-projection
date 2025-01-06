@@ -54,7 +54,7 @@ const Canvas = () => {
 
 	const handleMouseMove = (e: MouseEvent) => {
 		if (isPointerLocked) {
-			rotateCamera(-e.movementX * mouseSpeed, 0, 0);
+			rotateCamera(-e.movementX * mouseSpeed, -e.movementY * mouseSpeed, 0);
 		}
 	};
 
