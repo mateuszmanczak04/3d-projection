@@ -27,12 +27,23 @@ const Canvas = () => {
 		// yaw - left/right
 		// pitch - top/bottom but only if yaw is 0
 		// roll - top/bottom but only if yaw is 90
-		setCamera((prev) => ({
-			...prev,
-			yaw: prev.yaw + yaw,
-			pitch: prev.pitch + pitch,
-			roll: prev.roll + roll,
-		}));
+
+		setCamera((prev) => {
+			// Limit yaw to (-180, 180)
+			let newYaw = camera.yaw + yaw + 180;
+			if (newYaw > 360) {
+				newYaw = newYaw % 360;
+			} else if (newYaw < 0) {
+				newYaw += 360;
+			}
+			newYaw -= 180;
+			return {
+				...prev,
+				yaw: newYaw,
+				pitch: prev.pitch + pitch,
+				roll: prev.roll + roll,
+			};
+		});
 	};
 
 	const handlePointerLock = async () => {
@@ -43,7 +54,7 @@ const Canvas = () => {
 
 	const handleMouseMove = (e: MouseEvent) => {
 		if (isPointerLocked) {
-			rotateCamera(-e.movementX * mouseSpeed, -e.movementY * mouseSpeed, 0);
+			rotateCamera(-e.movementX * mouseSpeed, 0, 0);
 		}
 	};
 
