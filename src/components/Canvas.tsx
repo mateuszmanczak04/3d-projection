@@ -77,6 +77,10 @@ const Canvas = () => {
 				canvasRef.current.width = window.innerWidth;
 				canvasRef.current.height = window.innerHeight;
 				repaint(blocks);
+				setCamera((prev) => ({
+					...prev,
+					aspectRatio: window.innerHeight / window.innerWidth,
+				}));
 			}
 		};
 
