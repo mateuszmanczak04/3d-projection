@@ -74,3 +74,4 @@ export const CAMERA: Camera = {
 };
 
 export const MOUSE_SPEED: number = 0.3;
+export const MOVEMENT_SPEED: number = 0.01;

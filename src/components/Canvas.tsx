@@ -1,14 +1,16 @@
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { BLOCKS, CAMERA, MOUSE_SPEED } from '../data';
+import useCameraMovement from '../hooks/use-camera-movement';
 import { Block, Camera } from '../types';
 import { render } from '../utils/render';
 
 const Canvas = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null!);
 	const [blocks] = useState<Block[]>(BLOCKS);
-	const [camera, setCamera] = useState<Camera>(CAMERA);
 	const [isPointerLocked, setIsPointerLocked] = useState<boolean>(false);
 	const [mouseSpeed] = useState<number>(MOUSE_SPEED);
+	const [camera, setCamera] = useState<Camera>(CAMERA);
+	useCameraMovement(camera, setCamera);
 
 	const repaint = useCallback(
 		(blocks: Block[]) => {
@@ -22,13 +24,6 @@ const Canvas = () => {
 	useEffect(() => {
 		repaint(blocks);
 	}, [blocks, repaint]);
-
-	const moveCamera = (x: number, y: number, z: number) => {
-		setCamera((prev) => ({
-			...prev,
-			position: [prev.position[0] + x, prev.position[1] + y, prev.position[2] + z],
-		}));
-	};
 
 	const rotateCamera = (yaw: number, pitch: number, roll: number) => {
 		// yaw - left/right
@@ -90,31 +85,6 @@ const Canvas = () => {
 
 		return () => window.removeEventListener('resize', handleResize);
 	}, [blocks, repaint]);
-
-	useEffect(() => {
-		const handleKeyDown = (e: KeyboardEvent) => {
-			switch (e.key) {
-				case 'w':
-					moveCamera(0, 0, 1);
-					break;
-				case 's':
-					moveCamera(0, 0, -1);
-					break;
-				case 'a':
-					moveCamera(-1, 0, 0);
-					break;
-				case 'd':
-					moveCamera(1, 0, 0);
-					break;
-				default:
-					break;
-			}
-		};
-
-		window.addEventListener('keydown', handleKeyDown);
-
-		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, []);
 
 	return (
 		<div>
